@@ -2,6 +2,8 @@
 
 A lightweight, scalar-valued automatic differentiation engine with dynamic DAG construction, custom neural network primitives, and numerical gradient verification against PyTorch (`torch.autograd`).
 
+> **Acknowledgements:** This project is inspired by and built upon the foundational concepts by **Andrej Karpathy** in his **[Neural Networks: Zero to Hero]([https://www.youtube.com/watch?v=VMj-3DA1sp0](https://youtu.be/VMj-3S1tku0?si=rBV5ZiB2e0rm76_N))** lecture and the original **[karpathy/micrograd](https://github.com/karpathy/micrograd)** repository.
+
 ## Key Features
 
 - **Scalar Autograd Engine**: Reverse-mode automatic differentiation over dynamic computational graphs (`Value` abstraction).
