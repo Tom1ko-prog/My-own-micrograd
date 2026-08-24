@@ -38,15 +38,13 @@ python comparison_with_torch.py
 
 ### Verification Results
 
-Maximum absolute gradient deviation ($\max |g_{\text{custom}} - g_{\text{pytorch}}|$) across all weights and biases:
+Maximum absolute gradient deviation across all weights and biases:
 
 | Epoch | Custom BCE Loss | PyTorch BCE Loss | Max Grad Diff |
 | :---: | :-------------: | :--------------: | :-----------: |
 |  10   |    1.301180     |     1.301179     |   1.67e-06    |
 |  20   |    0.981055     |     0.981054     |   6.26e-07    |
 |  50   |    0.526500     |     0.526500     |   5.59e-08    |
-
-*Gradients match PyTorch autograd outputs within single-precision floating-point tolerances ($<10^{-6}$).*
 
 ## Visualizing Computation Graphs
 
