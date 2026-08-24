@@ -10,16 +10,6 @@ A lightweight, scalar-valued automatic differentiation engine with dynamic DAG c
 - **PyTorch Equivalence Benchmark**: Strict step-by-step verification comparing forward loss and exact parameter gradients against `torch.nn` and `torch.autograd`.
 - **DAG Visualization**: Export computational graphs to SVG/PNG using Graphviz (`graph.py`).
 
-## Mathematical Foundation
-
-The backward pass computes exact partial derivatives $\frac{\partial L}{\partial x_i}$ via topological sorting of the computational DAG:
-
-$$v_i.\text{grad} = \sum_{j \in \text{children}(i)} v_j.\text{grad} \cdot \frac{\partial v_j}{\partial v_i}$$
-
-Activation functions such as GELU are constructed using scalar operations directly:
-
-$$\text{GELU}(x) = 0.5 \cdot x \cdot \left(1 + \tanh\left(\sqrt{\frac{2}{\pi}} \left(x + 0.044715 \cdot x^3\right)\right)\right)$$
-
 ## Quick Start
 
 ```python
@@ -56,11 +46,13 @@ Maximum absolute gradient deviation ($\max |g_{\text{custom}} - g_{\text{pytorch
 |  20   |    0.981055     |     0.981054     |   6.26e-07    |
 |  50   |    0.526500     |     0.526500     |   5.59e-08    |
 
-*Gradients match PyTorch autograd outputs within single-precision floating-point tolerances ($< 10^{-6}$).*
+*Gradients match PyTorch autograd outputs within single-precision floating-point tolerances ($<10^{-6}$).*
 
 ## Visualizing Computation Graphs
 
-To render the computational graph for a loss scalar into an SVG vector image:
+> **Note:** Generating a computational graph for an entire dataset batch can lead to extremely large graphs (tens of thousands of nodes), causing Graphviz layout generation to slow down significantly. It is recommended to perform a forward pass on a **single sample** to inspect the network topology.
+
+To render the computational graph into an SVG vector image:
 
 ```python
 from graph import draw_dot
