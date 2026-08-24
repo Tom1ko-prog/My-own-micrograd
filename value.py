@@ -67,11 +67,11 @@ class Value:
         return out
 
     def log(self):
-        x = self.data
-        out = Value(math.log(x + 1e-7), (self,), "log")
+        x_clamped = max(min(self.data, 1 - 1e-12), 1e-12)
+        out = Value(math.log(x_clamped + 1e-7), (self,), "log")
 
         def backward():
-            self.grad += (1 / (x + 1e-7)) * out.grad
+            self.grad += (1 / (x_clamped + 1e-7)) * out.grad
 
         out._backward = backward
         return out
@@ -128,7 +128,7 @@ class Value:
         return out
 
     def GELU(self):
-        inner = self + 0.44715 * self**3
+        inner = self + 0.044715 * self**3
 
         tanh_out = (inner * math.sqrt(2 / math.pi)).tanh()
         cdf = (tanh_out + 1) * 0.5
